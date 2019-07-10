@@ -35,9 +35,23 @@ def custom_missed_call():
 
 def l(x):
     print('Realtime heart BPM:', x)
+def l_raw(x):
+    print('Realtime heart RAW:', x)
+def l_accel(x):
+    print('Realtime ACCEL:', x)
 
 def heart_beat():
     band.start_raw_data_realtime(heart_measure_callback=l)
+    raw_input('Press Enter to continue')
+
+# raw callback don't display anything...
+def watch_raw_data():
+    band.start_raw_data_realtime(heart_raw_callback=l_raw, accel_raw_callback=l_accel)
+    raw_input('Press Enter to continue')
+
+# What is this supposed to do ?
+def previews_data():
+    band.start_get_previews_data(time.time())
     raw_input('Press Enter to continue')
 
 def change_date():
@@ -73,5 +87,7 @@ append_function_item(menu, "Send a Call Notification", custom_call)
 append_function_item(menu, "Send a Missed Call Notification", custom_missed_call)
 append_function_item(menu, "Change Date and Time", change_date)
 append_function_item(menu, "Get Heart BPM", heart_beat)
+append_function_item(menu, "Watch raw data", watch_raw_data)
+append_function_item(menu, "Previews data", previews_data)
 append_function_item(menu, "DFU Update", updateFirmware)
 menu.show()
