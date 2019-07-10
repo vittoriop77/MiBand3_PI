@@ -484,9 +484,8 @@ class MiBand3(Peripheral):
                 self.waitForNotifications(0.5)
                 self._parse_queue()
                 # send ping request every 12 sec
-                if (time.time() - t) >= 12:
+                if (time.time() - t) % 12 == 0:
                     char_ctrl.write(b'\x16', True)
-                    t = time.time()
 
     def stop_realtime(self):
             char_m = self.svc_heart.getCharacteristics(UUIDS.CHARACTERISTIC_HEART_RATE_MEASURE)[0]
