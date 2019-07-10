@@ -5,6 +5,7 @@ from cursesmenu.items import *
 from constants import ALERT_TYPES
 import time
 import os
+
 def call_immediate():
     print('Sending Call Alert')
     time.sleep(1)
@@ -31,6 +32,7 @@ def custom_call():
 
 def custom_missed_call():
     band.send_custom_alert(4)
+
 def l(x):
     print('Realtime heart BPM:', x)
 
@@ -40,13 +42,13 @@ def heart_beat():
 
 def change_date():
     band.change_date()
-MAC_ADDR = sys.argv[1]
-print('Attempting to connect to ', MAC_ADDR)
 
 def updateFirmware():
     fileName = raw_input('Enter the file Name with Extension\n')
     band.dfuUpdate(fileName)
 
+MAC_ADDR = sys.argv[1]
+print('Attempting to connect to ', MAC_ADDR)
 band = MiBand3(MAC_ADDR, debug=True)
 band.setSecurityLevel(level = "medium")
 
@@ -59,24 +61,17 @@ if len(sys.argv) > 2:
 else:
     band.authenticate()
 
-menu = CursesMenu("MiBand MAC: " + MAC_ADDR, "Select an option")
-detail_menu = FunctionItem("View Band Detail info", detail_info)
-call_notif = FunctionItem("Send a High Prority Call Notification", call_immediate)
-msg_notif = FunctionItem("Send a Medium Prority Message Notification", msg_immediate)
-msg_alert = FunctionItem("Send a Message Notification", custom_message)
-call_alert = FunctionItem("Send a Call Notification", custom_call)
-miss_call_alert = FunctionItem("Send a Missed Call Notification", custom_missed_call)
-change_date_time = FunctionItem("Change Date and Time", change_date)
-heart_beat_menu = FunctionItem("Get Heart BPM", heart_beat)
-dfu_update_menu = FunctionItem("DFU Update", updateFirmware)
+def append_function_item(menu, text, fn):
+  menu.append_item(FunctionItem(text, fn))
 
-menu.append_item(detail_menu)
-menu.append_item(call_notif)
-menu.append_item(msg_notif)
-menu.append_item(msg_alert)
-menu.append_item(call_alert)
-menu.append_item(change_date_time)
-menu.append_item(miss_call_alert)
-menu.append_item(heart_beat_menu)
-menu.append_item(dfu_update_menu)
+menu = CursesMenu("MiBand MAC: " + MAC_ADDR, "Select an option")
+append_function_item(menu, "View Band Detail info", detail_info)
+append_function_item(menu, "Send a High Prority Call Notification", call_immediate)
+append_function_item(menu, "Send a Medium Prority Message Notification", msg_immediate)
+append_function_item(menu, "Send a Message Notification", custom_message)
+append_function_item(menu, "Send a Call Notification", custom_call)
+append_function_item(menu, "Send a Missed Call Notification", custom_missed_call)
+append_function_item(menu, "Change Date and Time", change_date)
+append_function_item(menu, "Get Heart BPM", heart_beat)
+append_function_item(menu, "DFU Update", updateFirmware)
 menu.show()

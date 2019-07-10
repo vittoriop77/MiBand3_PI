@@ -400,6 +400,7 @@ class MiBand3(Peripheral):
         # print(write_val)
         char.write('\xe2\x07\x01\x1e\x00\x00\x00\x00\x00\x00\x16', withResponse=True)
         raw_input('Date Changed, press any key to continue')
+
     def dfuUpdate(self, fileName):
         print('Update Firmware/Resource')
         svc = self.getServiceByUUID(UUIDS.SERVICE_DFU_FIRMWARE)
@@ -450,6 +451,7 @@ class MiBand3(Peripheral):
             char.write('\x05', withResponse=True)
         print('Update Complete')
         raw_input('Press Enter to Continue')
+
     def start_raw_data_realtime(self, heart_measure_callback=None, heart_raw_callback=None, accel_raw_callback=None):
             char_m = self.svc_heart.getCharacteristics(UUIDS.CHARACTERISTIC_HEART_RATE_MEASURE)[0]
             char_d = char_m.getDescriptors(forUUID=UUIDS.NOTIFICATION_DESCRIPTOR)[0]
