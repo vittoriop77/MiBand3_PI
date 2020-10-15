@@ -50,7 +50,6 @@ class AuthenticationDelegate(DefaultDelegate):
                 self.device.queue.put((QUEUE_TYPES.RAW_ACCEL, data))
             elif len(data) == 16:
                 self.device.queue.put((QUEUE_TYPES.RAW_HEART, data))
-<<<<<<< HEAD:base.py
         # The fetch characteristic controls the communication with the activity characteristic.
         # It can trigger the communication.
         elif hnd == self.device._char_fetch.getHandle():
@@ -109,8 +108,6 @@ class AuthenticationDelegate(DefaultDelegate):
                     if timestamp == d:
                         self.device.active = False
                         return
-=======
->>>>>>> Initial Commit:auth.py
         else:
             self.device._log.error("Unhandled Response " + hex(hnd) + ": " +
                                    str(data.encode("hex")) + " len:" + str(len(data)))
