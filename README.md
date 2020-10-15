@@ -21,7 +21,7 @@ sudo hcitool lescan
 ```
 5) Run this to auth device
 ```sh
-python main.py --mac MAC_ADDRESS --init
+python main.py MAC_ADDRESS --init
 ```
 6) If you having problems(BLE can glitch sometimes) try this and repeat from 4)
 ```sh
