@@ -63,7 +63,12 @@ def updateFirmware():
 
 MAC_ADDR = sys.argv[1]
 print('Attempting to connect to ', MAC_ADDR)
-band = MiBand3(MAC_ADDR, debug=True)
+try:
+    band = MiBand3(MAC_ADDR, debug=True)
+except Exception as e:
+    print(e)
+    print('Fail to connect, remember to unpair from your mobile app')
+    quit()
 band.setSecurityLevel(level = "medium")
 
 # Authenticate the MiBand
