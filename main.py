@@ -22,7 +22,7 @@ def detail_info():
     print('Battery:', band.get_battery_info())
     print('Time:', band.get_current_time())
     print('Steps:', band.get_steps())
-    raw_input('Press Enter to continue')
+    input('Press Enter to continue')
 def custom_message():
     band.send_custom_alert(5)
 
@@ -69,6 +69,7 @@ except Exception as e:
     print(e)
     print('Fail to connect, remember to unpair from your mobile app')
     quit()
+
 band.setSecurityLevel(level = "medium")
 
 # Authenticate the MiBand
